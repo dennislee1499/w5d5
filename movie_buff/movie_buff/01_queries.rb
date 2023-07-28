@@ -25,7 +25,17 @@ def harrison_ford
   # Find the id and title of all movies in which Harrison Ford appeared but not
   # as a lead actor.
 
+
+  # syntax for using a sql query: wrap sql query in a string:
+
   # Movie.joins(:actors).where("actors.name = 'Harrison Ford' AND castings.ord > 1").select(:id,  :title)
+
+  #syntax using active records
+
+  # id and title will default to the Model, unless otherwise specified 
+
+  # joins will use has_many_through(association) as a paramater to connect all tables.
+  # where: will take in a table name, then a hash with the column name and value specified.
 
   Movie
     .joins(:actors)
@@ -50,6 +60,20 @@ def biggest_cast
   #
   # Find the id and title of the 3 movies with the largest casts (i.e., most
   # actors).
+
+  Movie.joins(:actors).group("movies.id").order('COUNT(actors.id) DESC').limit(3).select(:id, :title)
+
+   #ASK ABOUT
+
+  # Actor
+  #   .joins(:movies)
+  #   .group("actors.id")
+  #   .order('COUNT(actors.id) DESC')
+  #   .limit(3)
+  #   .select("movies.id AND movies.title")
+
+
+
   
 end
 
